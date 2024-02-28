@@ -3,15 +3,24 @@ Student Course Management Application
 
 Use cases supported:
 
-Adding new students.
+Adding new students
+
 Fetching All students details
+
 Fetching specific student details
+
 Updating specific student
+
 Deleting specific student
+
 Adding new courses
+
 Fetching all courses
+
 Fetching specific course
+
 Updating course
+
 Deleting course
 
 Unit test coverage: added only sample test cases due to lack of time. Test cases can be added for all above scenarios to increase the code coverage.
