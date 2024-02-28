@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Builder
 @Getter
 @NoArgsConstructor
@@ -24,9 +26,12 @@ public class Student {
 	private String studentName;
 	@Column(name="student_age")
 	private Integer studentAge;
-	
-	
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "students")
+
+
+	@ManyToMany(fetch = LAZY, cascade = CascadeType.PERSIST)
+	@JoinTable(
+			name = "student_course",
+			joinColumns = @JoinColumn(name = "studentRoll" , referencedColumnName = "student_roll"),
+			inverseJoinColumns = @JoinColumn(name = "courseName",  referencedColumnName = "course_name"))
 	private List<Course> courses = new ArrayList<>();
 }

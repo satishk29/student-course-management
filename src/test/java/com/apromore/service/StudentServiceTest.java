@@ -59,6 +59,29 @@ public class StudentServiceTest {
     }
 
     @Test
+    void fetchStudents_givenStudentExistsInDB_returnsStudentsDetails() {
+
+        List<Student> studentsCreatedInDb = new ArrayList<>();
+        studentsCreatedInDb.add(Student.builder().studentRoll(1).studentName("test1").studentAge(10)
+                .courses(List.of(Course.builder().courseName("course1").courseCode("course1").courseDescription("course1").build()))
+                .build());
+        studentsCreatedInDb.add(Student.builder().studentRoll(2).studentName("test2").studentAge(10)
+                .courses(List.of(Course.builder().courseName("course2").courseCode("course2").courseDescription("course2").build()))
+                .build());
+
+        when(studentRepository.findAll()).thenReturn(studentsCreatedInDb);
+
+        Students students = studentService.fetchStudents();
+
+        assertEquals("test1", students.getStudents().get(0).getStudentName());
+        assertEquals(1, students.getStudents().get(0).getStudentRoll());
+        assertEquals(10, students.getStudents().get(0).getStudentAge());
+        assertEquals("test2", students.getStudents().get(1).getStudentName());
+        assertEquals(2, students.getStudents().get(1).getStudentRoll());
+        assertEquals(10, students.getStudents().get(1).getStudentAge());
+    }
+
+    @Test
     void fetchStudent_givenValidStudentRoll_returnsStudentDetails() throws StudentException {
 
         Student student = Student.builder().studentRoll(1).studentName("test1").studentAge(10)
@@ -69,9 +92,9 @@ public class StudentServiceTest {
 
         StudentDetails studentDetails = studentService.fetchStudent(1);
 
-        assertEquals("test1", student.getStudentName());
-        assertEquals(1, student.getStudentRoll());
-        assertEquals(10, student.getStudentAge());
+        assertEquals("test1", studentDetails.getStudentName());
+        assertEquals(1, studentDetails.getStudentRoll());
+        assertEquals(10, studentDetails.getStudentAge());
     }
 
     @Test

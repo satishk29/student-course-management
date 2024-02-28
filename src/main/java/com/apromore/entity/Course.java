@@ -7,6 +7,8 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Builder
 @Getter
 @NoArgsConstructor
@@ -22,7 +24,6 @@ public class Course {
 	@Column(name="course_description")
 	private String courseDescription;
 
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "courses", fetch = LAZY, cascade = CascadeType.PERSIST)
 	private List<Student> students = new ArrayList<>();
 }
