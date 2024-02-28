@@ -25,6 +25,8 @@ Use cases supported:
 
 Unit test coverage: added only sample test cases due to lack of time. Test cases can be added for all above scenarios to increase the code coverage.
 
+Functional test report is available under src/test folder in repo.
+
 H2 database is used for storing the student and course details. No specific actions required on database side. The schema and tables will be created in-memory once the application is started successfully.
 
 Build and Execution Instructions
