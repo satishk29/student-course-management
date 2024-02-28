@@ -49,6 +49,7 @@ public class StudentService {
 
 		List<Student> studentsCreatedInDb = studentRepository.saveAll(studentsToBeCreatedInDb);
 
+		//Converting Domain model to DTO. This helps in cases where not all fields from DB need to be passed to clients
 		List<StudentDetails> studentDetails = studentsCreatedInDb.stream().map(student -> StudentDetails.builder()
 				.studentRoll(student.getStudentRoll())
 				.studentName(student.getStudentName())
@@ -64,7 +65,6 @@ public class StudentService {
 			.map(student -> {
 				List<Course> courses = student.getCourses();
 				List<String> courseNames = courses.stream().map(Course::getCourseName).collect(Collectors.toList());
-				log.info("Course Names : {}", courseNames);
 				return StudentDetails.builder()
 					.studentRoll(student.getStudentRoll())
 					.studentName(student.getStudentName())
@@ -73,6 +73,7 @@ public class StudentService {
 					.build();
 				}).collect(Collectors.toList());
 
+		//Converting domain model to DTO
 		return Students.builder().students(studentDetails).build();
 	}
 
